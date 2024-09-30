@@ -20,6 +20,23 @@ This is a Shipday extension for [Spree Commerce](https://spreecommerce.org), an 
 
   If your server was running, restart it so that it can find the assets properly.
 
+## Configuration
+
+### Configuring Spree
+
+    ```ruby
+    # config/initializers/shipday.rb
+
+    SpreeShipday.configure do |config|
+        config.api_key = 'your_shipday_api_key'
+    end
+    ```
+
+The Shipday API key can be found inside the Account Details from the Profile dropdown menu.
+
+After installing the extension, please make sure to make adjustments to the price and delivery regions inside 
+the Shipday delivery method.
+
 ## Developing
 
 1. Create a dummy app
