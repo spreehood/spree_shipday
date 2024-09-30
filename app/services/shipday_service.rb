@@ -51,6 +51,8 @@ class ShipdayService
     case response
     when Net::HTTPSuccess
       Rails.logger.info("Shipday order created successfully for Spree order #{@order.number}")
+
+      Spree::ShipdayOrder.create(spree_order_id: @order.id, shipday_order_id: JSON.parse(response.body)['orderId'])
     else
       Rails.logger.error("Failed to create Shipday order for Spree order #{@order.number}: #{response.body}")
     end
