@@ -18,10 +18,11 @@ module SpreeShipday
       SpreeShipday::Config = SpreeShipday::Configuration.new
     end
 
-    initializer 'spree_shipday.add_shipping_method', after: :finisher_hook do |_app|
-      unless Spree::ShippingMethod.exists?(name: 'Shipday Delivery')
-        Rails.application.load_tasks
-        Rake::Task['shipday:add_shipping_method'].invoke
+    initializer 'spree_shipday.create_shipping_method', after: :load_config_initializers do
+      unless Rails.application.config.assets.precompile
+        Rails.application.config.after_initialize do
+          SpreeShipday::Engine.create_shipday_shipping_method
+        end
       end
     end
 
